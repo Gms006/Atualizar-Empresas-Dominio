@@ -1,0 +1,23 @@
+# Automação Sistema Domínio - Dependências
+# Instalar com: pip install -r requirements.txt
+
+# Automação Web
+playwright>=1.40.0
+
+# Requisições HTTP
+requests>=2.31.0
+
+# Gerenciamento de variáveis de ambiente
+python-dotenv>=1.0.0
+
+# Manipulação de dados (opcional, caso precise expandir)
+pandas>=2.0.0
+
+# Normalização de texto (para comparação de nomes)
+unidecode>=1.3.0
+
+# Logging estruturado (opcional)
+colorama>=0.4.6
+
+# Validação de dados (opcional)
+pydantic>=2.0.0
