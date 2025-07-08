@@ -41,7 +41,7 @@ TEST_MODE=true  # opcional, processa somente as 3 primeiras empresas
 3. Copie sua API key para o arquivo `.env`
 
 ### 🌐 Configurar Caminho do Sistema
-No arquivo `script.py`, ajuste a constante `APP_SHORTCUT` caso o atalho esteja em outro local.
+No arquivo `script.py`, ajuste a constante `APP_SHORTCUT` caso o executável esteja em outro local.
 
 ### 🎯 Ajustar Componentes da Interface
 Se a interface do sistema for diferente, edite os métodos da classe para localizar os elementos corretos utilizando **pywinauto** ou **pyautogui**.
