@@ -25,12 +25,7 @@ cd dominio-automation
 pip install -r requirements.txt
 ```
 
-### 3. Instale o navegador Chromium
-```bash
-playwright install chromium
-```
-
-### 4. Configure as variáveis de ambiente
+### 3. Configure as variáveis de ambiente
 Crie um arquivo `.env` na raiz do projeto:
 ```env
 DOMINIO_PASSWORD=sua_senha_do_dominio
@@ -44,23 +39,16 @@ CAPTCHA_2CAPTCHA_KEY=sua_chave_do_2captcha
 2. Crie uma conta e adicione fundos
 3. Copie sua API key para o arquivo `.env`
 
-### 🌐 Configurar URL do Sistema
-No arquivo `dominio_automation.py`, linha 35:
-```python
-await self.page.goto("URL_DO_DOMINIO")  # Substitua pela URL real
-```
+### 🌐 Configurar Caminho do Sistema
+No arquivo `script.py`, ajuste a constante `APP_SHORTCUT` caso o atalho esteja em outro local.
 
-### 🎯 Ajustar Seletores (se necessário)
-Caso a interface do sistema seja diferente, ajuste os seletores CSS nas seguintes funções:
-- `login()` - Campos de login
-- `get_companies_list()` - Lista de empresas
-- `select_company()` - Seleção de empresa
-- `update_company_data()` - Campos de dados
+### 🎯 Ajustar Componentes da Interface
+Se a interface do sistema for diferente, edite os métodos da classe para localizar os elementos corretos utilizando **pywinauto** ou **pyautogui**.
 
 ## 🏃‍♂️ Execução
 
 ```bash
-python dominio_automation.py
+python script.py
 ```
 
 ### 📊 Logs Gerados
@@ -125,9 +113,9 @@ EXEMPLO LTDA,12345678000123,Divergência no Quadro Societário,0,Sócio ausente 
 - ✅ Chave 2Captcha em `.env` (não versionado)
 - ✅ Logs locais (não enviados para nuvem)
 
-### Navegador
-- 🔒 Usa Chromium controlado (não headless para debug)
-- 🔒 Contexto isolado por sessão
+### Aplicativo
+- 🔒 Uso do aplicativo instalado no Windows
+- 🔒 Janela identificada e controlada por pywinauto
 - 🔒 Fechamento automático ao final
 
 ## 🐛 Solução de Problemas
@@ -135,28 +123,24 @@ EXEMPLO LTDA,12345678000123,Divergência no Quadro Societário,0,Sócio ausente 
 ### Script não inicia
 ```bash
 # Verificar dependências
-pip list | grep playwright
+pip list | grep pywinauto
 pip list | grep requests
 
 # Reinstalar se necessário
 pip install -r requirements.txt --force-reinstall
 ```
 
-### Erro de navegador
-```bash
-# Reinstalar navegador
-playwright install chromium --force
-```
+
 
 ### Captcha não resolve
 - Verifique saldo no 2Captcha
 - Confirme se a chave está correta no `.env`
 - Teste conexão: `curl "http://2captcha.com/res.php?key=SUA_CHAVE&action=getbalance"`
 
-### Seletores não funcionam
-- Inspecione a interface do sistema Domínio
-- Ajuste os seletores CSS no código
-- Use `await self.page.screenshot(path="debug.png")` para debug
+### Elementos não encontrados
+- Inspecione a janela do sistema Domínio
+- Ajuste os identificadores usados no código
+- Use `pyautogui.screenshot('debug.png')` para auxiliar no debug
 
 ## 📞 Suporte
 
@@ -167,11 +151,6 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 ```
 
-### Modo Headless
-Para execução em servidor, altere na linha 22:
-```python
-self.browser = await playwright.chromium.launch(headless=True)
-```
 
 ## ⚖️ Responsabilidades
 
