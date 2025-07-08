@@ -30,6 +30,7 @@ Crie um arquivo `.env` na raiz do projeto:
 ```env
 DOMINIO_PASSWORD=sua_senha_do_dominio
 CAPTCHA_2CAPTCHA_KEY=sua_chave_do_2captcha
+TEST_MODE=true  # opcional, processa somente as 3 primeiras empresas
 ```
 
 ## ⚙️ Configuração
@@ -50,6 +51,8 @@ Se a interface do sistema for diferente, edite os métodos da classe para locali
 ```bash
 python script.py
 ```
+
+Se a variável `TEST_MODE` estiver definida como `true`, somente as três primeiras empresas serão processadas.
 
 ### 📊 Logs Gerados
 O script gera dois tipos de log:

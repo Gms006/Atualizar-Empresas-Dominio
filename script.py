@@ -1,10 +1,3 @@
-"""Automação do Sistema Domínio utilizando pywinauto e pyautogui.
-
-Este script foi adaptado para controlar a aplicação de desktop do Domínio.
-Algumas interações dependem da configuração da interface e podem exigir ajustes
-manuais nos identificadores dos elementos.
-"""
-
 import csv
 import json
 import os
@@ -13,7 +6,6 @@ import time
 from datetime import datetime
 from typing import Dict, List
 import base64
-
 import pyautogui
 import pyperclip
 import requests
@@ -22,8 +14,7 @@ from pywinauto import Application, keyboard
 
 
 # caminho padrão do atalho do Domínio Registro
-APP_SHORTCUT = r"C:\Users\Public\Desktop\Domínio Contábil\Domínio Registro.lnk"
-
+APP_SHORTCUT = r"C:\Contabil\contabil.exe /registro"
 
 class DominioAutomation:
     """Automação simplificada do Domínio utilizando pywinauto."""
@@ -32,6 +23,8 @@ class DominioAutomation:
         load_dotenv()
         self.password = os.getenv("DOMINIO_PASSWORD", "")
         self.captcha_key = os.getenv("CAPTCHA_2CAPTCHA_KEY", "")
+
+        self.test_mode = os.getenv("TEST_MODE", "false").lower() in ("1", "true", "yes")
         self.app: Application | None = None
         self.main_window = None
         self.log_json: List[Dict] = []
@@ -240,6 +233,10 @@ class DominioAutomation:
             return
 
         companies = self.get_companies_list()
+        if self.test_mode:
+            companies = companies[:3]
+            print("Modo teste ativo: processando apenas as 3 primeiras empresas")
+
         print(f"Processando {len(companies)} empresas")
         for company in companies:
             if not self.select_company(company):
@@ -260,4 +257,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
