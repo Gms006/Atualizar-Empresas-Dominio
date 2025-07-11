@@ -45,6 +45,14 @@ class DominioAutomation:
                 return False
 
             self.main_window.set_focus()
+            # garante que o campo de senha esteja visível antes de digitar
+            try:
+                password_edit = self.main_window.child_window(control_type="Edit")
+                password_edit.wait("ready", timeout=5)
+                password_edit.click_input()
+            except Exception:  # pragma: no cover - depende da UI
+                pass
+
             keyboard.send_keys(self.password)
             keyboard.send_keys("%o")  # Alt+O
             time.sleep(2)
