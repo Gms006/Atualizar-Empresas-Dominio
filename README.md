@@ -145,6 +145,16 @@ pip install -r requirements.txt --force-reinstall
 - Ajuste os identificadores usados no código
 - Use `pyautogui.screenshot('debug.png')` para auxiliar no debug
 
+## ❓ FAQ
+
+### O script exibe `TimeoutError` ao iniciar
+Verifique se a constante `APP_SHORTCUT` aponta para o executável correto do Domínio e se a janela de login abre normalmente fora do script.  
+Caso o sistema demore a iniciar, aumente o tempo de espera na função `init_app`.
+
+### A senha não é inserida na janela de login
+Confirme que o foco está no campo de senha e que o uso de área de transferência não está bloqueado.  
+Se necessário, altere o método de digitação para `keyboard.send_keys`.
+
 ## 📞 Suporte
 
 ### Logs de Debug
