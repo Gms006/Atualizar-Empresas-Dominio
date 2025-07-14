@@ -25,6 +25,7 @@ class DominioAutomation:
         self.captcha_key = os.getenv("CAPTCHA_2CAPTCHA_KEY", "")
 
         self.test_mode = os.getenv("TEST_MODE", "false").lower() in ("1", "true", "yes")
+        self.manual_login = os.getenv("MANUAL_LOGIN", "false").lower() in ("1", "true", "yes")
         self.app: Application | None = None
         self.main_window = None
         self.log_json: List[Dict] = []
@@ -34,18 +35,35 @@ class DominioAutomation:
     # ------------------------------------------------------------------
     def init_app(self) -> None:
         """Abre o aplicativo Domínio a partir do atalho."""
-        self.app = Application(backend="uia").start(APP_SHORTCUT)
+        self.app = Application(backend="uia").start(APP_SHORTCUT, wait_for_idle=False)
+        time.sleep(2)
+        self.app.connect(title_re=".*Domínio.*", timeout=60)
         self.main_window = self.app.window(title_re=".*Domínio.*")
         self.main_window.wait("visible", timeout=60)
 
     def login(self) -> bool:
-        """Realiza login básico enviando a senha e pressionando Alt+O."""
+        """Realiza login automático ou aguarda login manual."""
         try:
             if not self.main_window:
                 return False
 
+            self.main_window.wait("ready", timeout=30)
             self.main_window.set_focus()
-            keyboard.send_keys(self.password)
+
+            if self.manual_login:
+                print("Aguardando login manual. Realize o login e pressione Enter...")
+                input()
+                return True
+
+            try:
+                password_edit = self.main_window.child_window(control_type="Edit")
+                password_edit.wait("ready", timeout=5)
+                password_edit.click_input()
+                pyperclip.copy(self.password)
+                pyautogui.hotkey("ctrl", "v")
+                time.sleep(0.5)
+            except Exception:  # pragma: no cover - depende da UI
+                keyboard.send_keys(self.password)
             keyboard.send_keys("%o")  # Alt+O
             time.sleep(2)
             return True

@@ -31,6 +31,7 @@ Crie um arquivo `.env` na raiz do projeto:
 DOMINIO_PASSWORD=sua_senha_do_dominio
 CAPTCHA_2CAPTCHA_KEY=sua_chave_do_2captcha
 TEST_MODE=true  # opcional, processa somente as 3 primeiras empresas
+MANUAL_LOGIN=true  # se verdadeiro, o script aguardará o login manual
 ```
 
 ## ⚙️ Configuração
@@ -144,6 +145,19 @@ pip install -r requirements.txt --force-reinstall
 - Inspecione a janela do sistema Domínio
 - Ajuste os identificadores usados no código
 - Use `pyautogui.screenshot('debug.png')` para auxiliar no debug
+
+## ❓ FAQ
+
+### O script exibe `TimeoutError` ao iniciar
+Verifique se a constante `APP_SHORTCUT` aponta para o executável correto do Domínio e se a janela de login abre normalmente fora do script.  
+Caso o sistema demore a iniciar, aumente o tempo de espera na função `init_app`.
+
+### A senha não é inserida na janela de login
+Confirme que o foco está no campo de senha e que o uso de área de transferência não está bloqueado.
+Se necessário, altere o método de digitação para `keyboard.send_keys`.
+
+### Posso fazer o login manualmente?
+Defina `MANUAL_LOGIN=true` no arquivo `.env`. O script abrirá o Domínio e aguardará você concluir o login manualmente antes de continuar.
 
 ## 📞 Suporte
 
