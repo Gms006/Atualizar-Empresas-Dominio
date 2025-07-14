@@ -58,6 +58,7 @@ class DominioAutomation:
                 time.sleep(0.5)
             except Exception:  # pragma: no cover - depende da UI
                 keyboard.send_keys(self.password)
+
             keyboard.send_keys("%o")  # Alt+O
             time.sleep(2)
             return True
