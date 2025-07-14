@@ -30,7 +30,12 @@ class DominioConsultaSocietaria:
     # --------------------------------------------------------------
     def init_app(self) -> None:
         """Abre o aplicativo Dom\u00ednio."""
-        self.app = Application(backend="uia").start(APP_SHORTCUT)
+        # inicia o Dom\u00ednio sem aguardar ocioso para evitar travamentos
+        self.app = Application(backend="uia").start(APP_SHORTCUT, wait_for_idle=False)
+        time.sleep(2)  # pequena pausa para a janela ser criada
+
+        # conecta na janela principal, que pode demorar alguns segundos para surgir
+        self.app.connect(title_re=".*Dom\u00ednio.*", timeout=60)
         self.main_window = self.app.window(title_re=".*Dom\u00ednio.*")
         self.main_window.wait("visible", timeout=60)
 
@@ -39,6 +44,7 @@ class DominioConsultaSocietaria:
         try:
             if not self.main_window:
                 return False
+            self.main_window.wait("ready", timeout=30)
             self.main_window.set_focus()
             # garante que o campo de senha esteja ativo antes de digitar
             try:

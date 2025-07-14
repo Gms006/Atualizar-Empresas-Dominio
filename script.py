@@ -34,7 +34,9 @@ class DominioAutomation:
     # ------------------------------------------------------------------
     def init_app(self) -> None:
         """Abre o aplicativo Domínio a partir do atalho."""
-        self.app = Application(backend="uia").start(APP_SHORTCUT)
+        self.app = Application(backend="uia").start(APP_SHORTCUT, wait_for_idle=False)
+        time.sleep(2)
+        self.app.connect(title_re=".*Domínio.*", timeout=60)
         self.main_window = self.app.window(title_re=".*Domínio.*")
         self.main_window.wait("visible", timeout=60)
 
@@ -44,6 +46,7 @@ class DominioAutomation:
             if not self.main_window:
                 return False
 
+            self.main_window.wait("ready", timeout=30)
             self.main_window.set_focus()
             # garante que o campo de senha esteja visível antes de digitar
             try:
