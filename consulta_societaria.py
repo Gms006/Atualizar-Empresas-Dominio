@@ -53,13 +53,13 @@ class DominioConsultaSocietaria:
                 input()
                 return True
 
-            try:
                 password_edit = self.main_window.child_window(control_type="Edit")
                 password_edit.wait("ready", timeout=5)
                 password_edit.click_input()
                 pyperclip.copy(self.password)
                 pyautogui.hotkey("ctrl", "v")
                 time.sleep(0.5)
+
             except Exception:  # pragma: no cover - depende da UI
                 keyboard.send_keys(self.password)
 
