@@ -21,6 +21,7 @@ class DominioConsultaSocietaria:
         load_dotenv()
         self.password = os.getenv("DOMINIO_PASSWORD", "")
         self.test_mode = os.getenv("TEST_MODE", "false").lower() in ("1", "true", "yes")
+        self.manual_login = os.getenv("MANUAL_LOGIN", "false").lower() in ("1", "true", "yes")
         self.app: Application | None = None
         self.main_window = None
         self.log_json: List[Dict] = []
@@ -40,14 +41,18 @@ class DominioConsultaSocietaria:
         self.main_window.wait("visible", timeout=60)
 
     def login(self) -> bool:
-        """Realiza login enviando a senha."""
+        """Realiza login automatico ou aguarda login manual."""
         try:
             if not self.main_window:
                 return False
             self.main_window.wait("ready", timeout=30)
             self.main_window.set_focus()
-            # garante que o campo de senha esteja ativo antes de digitar
-            try:
+
+            if self.manual_login:
+                print("Aguardando login manual. Realize o login e pressione Enter...")
+                input()
+                return True
+
                 password_edit = self.main_window.child_window(control_type="Edit")
                 password_edit.wait("ready", timeout=5)
                 password_edit.click_input()

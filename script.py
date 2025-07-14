@@ -25,6 +25,7 @@ class DominioAutomation:
         self.captcha_key = os.getenv("CAPTCHA_2CAPTCHA_KEY", "")
 
         self.test_mode = os.getenv("TEST_MODE", "false").lower() in ("1", "true", "yes")
+        self.manual_login = os.getenv("MANUAL_LOGIN", "false").lower() in ("1", "true", "yes")
         self.app: Application | None = None
         self.main_window = None
         self.log_json: List[Dict] = []
@@ -41,14 +42,19 @@ class DominioAutomation:
         self.main_window.wait("visible", timeout=60)
 
     def login(self) -> bool:
-        """Realiza login básico enviando a senha e pressionando Alt+O."""
+        """Realiza login automático ou aguarda login manual."""
         try:
             if not self.main_window:
                 return False
 
             self.main_window.wait("ready", timeout=30)
             self.main_window.set_focus()
-            # garante que o campo de senha esteja visível antes de digitar
+
+            if self.manual_login:
+                print("Aguardando login manual. Realize o login e pressione Enter...")
+                input()
+                return True
+
             try:
                 password_edit = self.main_window.child_window(control_type="Edit")
                 password_edit.wait("ready", timeout=5)
