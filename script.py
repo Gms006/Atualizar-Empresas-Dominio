@@ -53,6 +53,7 @@ class DominioAutomation:
                 password_edit.type_keys(self.password, with_spaces=True)
             except Exception:  # pragma: no cover - depende da UI
                 keyboard.send_keys(self.password)
+
             keyboard.send_keys("%o")  # Alt+O
             time.sleep(2)
             return True
