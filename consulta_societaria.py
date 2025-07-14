@@ -48,6 +48,7 @@ class DominioConsultaSocietaria:
                 pyperclip.copy(self.password)
                 pyautogui.hotkey("ctrl", "v")
                 time.sleep(0.5)
+
             except Exception:  # pragma: no cover - depende da UI
                 keyboard.send_keys(self.password)
 
