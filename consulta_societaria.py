@@ -65,6 +65,13 @@ class DominioConsultaSocietaria:
 
             keyboard.send_keys("%o")  # Alt+O
             time.sleep(2)
+
+            # conecta novamente à janela principal aberta apos o login
+            self.app.connect(title_re=".*Domínio.*", timeout=60)
+            self.main_window = self.app.window(title_re=".*Domínio.*")
+            self.main_window.wait("ready")
+            self.main_window.set_focus()
+
             return True
         except Exception:
             return False

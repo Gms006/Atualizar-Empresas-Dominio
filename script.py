@@ -67,6 +67,13 @@ class DominioAutomation:
 
             keyboard.send_keys("%o")  # Alt+O
             time.sleep(2)
+
+            # reconecta na nova janela principal apos o login
+            self.app.connect(title_re=".*Domínio.*", timeout=60)
+            self.main_window = self.app.window(title_re=".*Domínio.*")
+            self.main_window.wait("ready")
+            self.main_window.set_focus()
+
             return True
         except Exception as exc:  # pragma: no cover - interação de UI
             print(f"Erro no login: {exc}")
