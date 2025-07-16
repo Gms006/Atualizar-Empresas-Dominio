@@ -85,11 +85,13 @@ class DominioAutomation:
     def get_companies_list(self) -> List[str]:
         """Obtém a lista de empresas através da janela de troca de empresas."""
         try:
+            self.main_window.set_focus()
             keyboard.send_keys("{F8}")
             time.sleep(2)
 
             list_box = self.main_window.child_window(class_name="ListBox")
             companies = [item.window_text() for item in list_box.children()]
+            self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
             return companies
         except Exception as exc:  # pragma: no cover - interação de UI
@@ -99,16 +101,19 @@ class DominioAutomation:
     def select_company(self, name: str) -> bool:
         """Seleciona uma empresa na lista."""
         try:
+            self.main_window.set_focus()
             keyboard.send_keys("{F8}")
             time.sleep(1)
 
             list_box = self.main_window.child_window(class_name="ListBox")
             list_box.select(name)
+            self.main_window.set_focus()
             keyboard.send_keys("%o")  # confirmar
             time.sleep(1)
             return True
         except Exception as exc:  # pragma: no cover - interação de UI
             print(f"Erro ao selecionar empresa {name}: {exc}")
+            self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
             return False
 
@@ -129,6 +134,7 @@ class DominioAutomation:
         }
 
         try:
+            self.main_window.set_focus()
             keyboard.send_keys("%d")  # abre aba Dados (Alt+D)
             time.sleep(2)
 
@@ -137,14 +143,17 @@ class DominioAutomation:
             result["cnpj"] = re.sub(r"[^0-9]", "", cnpj_raw)
 
             # chamar atualização pelo menu
+            self.main_window.set_focus()
             keyboard.send_keys("%u")  # Alt+U - Atualizar Cadastro
             time.sleep(2)
 
             if not self.solve_captcha():
                 result["status"] = "Erro - Captcha não resolvido"
+                self.main_window.set_focus()
                 keyboard.send_keys("{ESC}")
                 return result
 
+            self.main_window.set_focus()
             keyboard.send_keys("%i")  # Alt+I - Importar
             time.sleep(3)
 
@@ -152,12 +161,14 @@ class DominioAutomation:
             self.save_changes()
 
             result["status"] = "Atualizada com sucesso"
+            self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
             time.sleep(1)
             return result
         except Exception as exc:  # pragma: no cover - interação de UI
             result["status"] = f"Erro: {exc}"
             result["observacoes"] = str(exc)
+            self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
             return result
 
