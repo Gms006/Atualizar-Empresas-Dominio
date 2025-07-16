@@ -35,7 +35,7 @@ class DominioAutomation:
     # ------------------------------------------------------------------
     def init_app(self) -> None:
         """Abre o aplicativo Domínio a partir do atalho."""
-        self.app = Application(backend="uia").start(APP_SHORTCUT, wait_for_idle=False)
+        self.app = Application(backend="win32").start(APP_SHORTCUT, wait_for_idle=False)
         time.sleep(2)
         self.app.connect(title_re=".*Domínio.*", timeout=60)
         self.main_window = self.app.window(title_re=".*Domínio.*")
@@ -56,7 +56,7 @@ class DominioAutomation:
                 return True
 
             try:
-                password_edit = self.main_window.child_window(control_type="Edit")
+                password_edit = self.main_window.child_window(class_name="Edit")
                 password_edit.wait("ready", timeout=5)
                 password_edit.click_input()
                 pyperclip.copy(self.password)
@@ -81,7 +81,7 @@ class DominioAutomation:
             keyboard.send_keys("{F8}")
             time.sleep(2)
 
-            list_box = self.main_window.child_window(auto_id="Empresas")
+            list_box = self.main_window.child_window(class_name="ListBox")
             companies = [item.window_text() for item in list_box.children()]
             keyboard.send_keys("{ESC}")
             return companies
@@ -95,7 +95,7 @@ class DominioAutomation:
             keyboard.send_keys("{F8}")
             time.sleep(1)
 
-            list_box = self.main_window.child_window(auto_id="Empresas")
+            list_box = self.main_window.child_window(class_name="ListBox")
             list_box.select(name)
             keyboard.send_keys("%o")  # confirmar
             time.sleep(1)
@@ -125,8 +125,8 @@ class DominioAutomation:
             keyboard.send_keys("%d")  # abre aba Dados (Alt+D)
             time.sleep(2)
 
-            cnpj_edit = self.main_window.child_window(auto_id="CNPJ")
-            cnpj_raw = cnpj_edit.get_value()  # type: ignore[attr-defined]
+            cnpj_edit = self.main_window.child_window(class_name="Edit")
+            cnpj_raw = cnpj_edit.window_text()
             result["cnpj"] = re.sub(r"[^0-9]", "", cnpj_raw)
 
             # chamar atualização pelo menu
