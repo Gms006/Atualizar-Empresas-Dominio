@@ -61,8 +61,10 @@ class DominioConsultaSocietaria:
                 pyautogui.hotkey("ctrl", "v")
                 time.sleep(0.5)
             except Exception:  # pragma: no cover - depende da UI
+                self.main_window.set_focus()
                 keyboard.send_keys(self.password)
 
+            self.main_window.set_focus()
             keyboard.send_keys("%o")  # Alt+O
             time.sleep(2)
 
@@ -81,10 +83,12 @@ class DominioConsultaSocietaria:
     # --------------------------------------------------------------
     def get_companies_list(self) -> List[str]:
         try:
+            self.main_window.set_focus()
             keyboard.send_keys("{F8}")
             time.sleep(2)
             list_box = self.main_window.child_window(class_name="ListBox")
             companies = [item.window_text() for item in list_box.children()]
+            self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
             return companies
         except Exception:
@@ -92,14 +96,17 @@ class DominioConsultaSocietaria:
 
     def select_company(self, name: str) -> bool:
         try:
+            self.main_window.set_focus()
             keyboard.send_keys("{F8}")
             time.sleep(1)
             list_box = self.main_window.child_window(class_name="ListBox")
             list_box.select(name)
+            self.main_window.set_focus()
             keyboard.send_keys("%o")
             time.sleep(1)
             return True
         except Exception:
+            self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
             return False
 
@@ -114,16 +121,19 @@ class DominioConsultaSocietaria:
             "observacoes": "",
         }
         try:
+            self.main_window.set_focus()
             keyboard.send_keys("%d")  # abre aba Dados
             time.sleep(2)
             cnpj_edit = self.main_window.child_window(class_name="Edit")
             cnpj_raw = cnpj_edit.window_text()
             result["cnpj"] = re.sub(r"[^0-9]", "", cnpj_raw)
             self.verify_shareholders(result)
+            self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
             time.sleep(1)
         except Exception as exc:
             result["observacoes"] = str(exc)
+            self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
         return result
 
