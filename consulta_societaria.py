@@ -54,7 +54,9 @@ class DominioConsultaSocietaria:
                 return True
 
             try:
-                password_edit = self.main_window.child_window(class_name="Edit")
+                password_edit = self.main_window.child_window(
+                    auto_id="1007", class_name="Edit"
+                )
                 password_edit.wait("ready", timeout=5)
                 password_edit.click_input()
                 pyperclip.copy(self.password)
