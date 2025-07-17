@@ -86,8 +86,11 @@ class DominioConsultaSocietaria:
             self.main_window.set_focus()
             keyboard.send_keys("{F8}")
             time.sleep(2)
-            list_box = self.main_window.child_window(class_name="ListBox")
-            companies = [item.window_text() for item in list_box.children()]
+            # the list of empresas is hosted inside a custom control identified
+            # by auto_id 1011 (class_name "pbdw190"), so we iterate over its
+            # children to read the names
+            list_box = self.main_window.child_window(auto_id="1011")
+            companies = [child.window_text() for child in list_box.children()]
             self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
             return companies
@@ -99,8 +102,16 @@ class DominioConsultaSocietaria:
             self.main_window.set_focus()
             keyboard.send_keys("{F8}")
             time.sleep(1)
-            list_box = self.main_window.child_window(class_name="ListBox")
-            list_box.select(name)
+            # seleciona a empresa procurando entre os filhos do controle
+            list_box = self.main_window.child_window(auto_id="1011")
+            for item in list_box.children():
+                if item.window_text().strip().upper() == name.upper():
+                    item.click_input()
+                    break
+            else:
+                self.main_window.set_focus()
+                keyboard.send_keys("{ESC}")
+                return False
             self.main_window.set_focus()
             keyboard.send_keys("%o")
             time.sleep(1)
