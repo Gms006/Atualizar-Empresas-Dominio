@@ -135,18 +135,42 @@ class DominioConsultaSocietaria:
         }
         try:
             self.main_window.set_focus()
-            keyboard.send_keys("%d")  # abre aba Dados
+            keyboard.send_keys("{F8}")  # abre Troca de empresas
+            time.sleep(1)
+
+            list_box = self.main_window.child_window(auto_id="1011")
+            for item in list_box.children():
+                if item.window_text().strip().upper() == company.upper():
+                    item.click_input()
+                    break
+            else:
+                self.main_window.set_focus()
+                keyboard.send_keys("{ESC}")
+                result["observacoes"] = "Empresa n\u00e3o encontrada"
+                return result
+
+            try:
+                dados_btn = self.main_window.child_window(auto_id="1006")
+                dados_btn.wait("ready", timeout=1)
+                dados_btn.click_input()
+            except Exception:
+                keyboard.send_keys("%d")  # alternativa via atalho
+
             time.sleep(2)
             cnpj_edit = self.main_window.child_window(class_name="Edit")
             cnpj_raw = cnpj_edit.window_text()
             result["cnpj"] = re.sub(r"[^0-9]", "", cnpj_raw)
             self.verify_shareholders(result)
+
             self.main_window.set_focus()
-            keyboard.send_keys("{ESC}")
+            keyboard.send_keys("{ESC}")  # fecha Dados
+            time.sleep(1)
+            keyboard.send_keys("{ESC}")  # fecha Troca de empresas
             time.sleep(1)
         except Exception as exc:
             result["observacoes"] = str(exc)
             self.main_window.set_focus()
+            keyboard.send_keys("{ESC}")
             keyboard.send_keys("{ESC}")
         return result
 
