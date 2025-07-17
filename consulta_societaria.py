@@ -49,19 +49,19 @@ class DominioConsultaSocietaria:
         self.main_window.wait("visible", timeout=60)
         self.logger.info(Fore.GREEN + "Aplicativo aberto" + Style.RESET_ALL)
 
-    def login(self) -> bool:
+    def login(self) -> tuple[bool, str]:
         """Realiza login automatico ou aguarda login manual."""
         self.logger.info(Fore.YELLOW + "Realizando login" + Style.RESET_ALL)
         try:
             if not self.main_window:
-                return False
+                return False, "Janela principal não encontrada"
             self.main_window.wait("ready", timeout=30)
             self.main_window.set_focus()
 
             if self.manual_login:
                 self.logger.info("Aguardando login manual")
                 input()
-                return True
+                return True, "Login manual realizado"
 
             try:
                 password_edit = self.main_window.child_window(
@@ -72,9 +72,14 @@ class DominioConsultaSocietaria:
                 pyperclip.copy(self.password)
                 pyautogui.hotkey("ctrl", "v")
                 time.sleep(0.5)
-            except Exception:  # pragma: no cover - depende da UI
-                self.main_window.set_focus()
-                keyboard.send_keys(self.password)
+            except Exception as exc:  # pragma: no cover - depende da UI
+                self.logger.error("Erro ao inserir senha: %s", exc)
+                try:
+                    self.main_window.set_focus()
+                    keyboard.send_keys(self.password)
+                except Exception as exc2:  # pragma: no cover - depende da UI
+                    self.logger.error("Falha no fallback de digitação: %s", exc2)
+                    return False, f"Erro ao digitar senha: {exc2}"
 
             self.main_window.set_focus()
             keyboard.send_keys("%o")  # Alt+O
@@ -88,15 +93,22 @@ class DominioConsultaSocietaria:
 
             self.logger.info(Fore.GREEN + "Login realizado" + Style.RESET_ALL)
 
-            return True
+            return True, ""
         except Exception as exc:
-            self.logger.error("Erro no login: %s", exc)
-            return False
+            screenshot = "login_error.png"
+            try:
+                pyautogui.screenshot(screenshot)
+            except Exception as scr_exc:  # pragma: no cover - captura opcional
+                self.logger.error("Falha ao salvar screenshot: %s", scr_exc)
+            self.logger.error(
+                "Erro no login: %s. Screenshot salvo em %s", exc, screenshot
+            )
+            return False, f"Erro no login: {exc}"
 
     # --------------------------------------------------------------
     # Processamento das empresas
     # --------------------------------------------------------------
-    def get_companies_list(self) -> List[str]:
+    def get_companies_list(self) -> tuple[List[str], str]:
         try:
             self.logger.debug("Obtendo lista de empresas")
             self.main_window.set_focus()
@@ -110,12 +122,12 @@ class DominioConsultaSocietaria:
             self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
             self.logger.info("%d empresas encontradas", len(companies))
-            return companies
-        except Exception:
-            self.logger.error("Falha ao obter empresas")
-            return []
+            return companies, ""
+        except Exception as exc:
+            self.logger.error("Falha ao obter empresas: %s", exc)
+            return [], str(exc)
 
-    def select_company(self, name: str) -> bool:
+    def select_company(self, name: str) -> tuple[bool, str]:
         try:
             self.logger.debug("Selecionando empresa %s", name)
             self.main_window.set_focus()
@@ -131,17 +143,17 @@ class DominioConsultaSocietaria:
                 self.main_window.set_focus()
                 keyboard.send_keys("{ESC}")
                 self.logger.warning("Empresa %s não encontrada", name)
-                return False
+                return False, f"Empresa {name} não encontrada"
             self.main_window.set_focus()
             keyboard.send_keys("%o")
             time.sleep(1)
             self.logger.info("Empresa %s selecionada", name)
-            return True
-        except Exception:
+            return True, ""
+        except Exception as exc:
             self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
-            self.logger.error("Falha ao selecionar empresa %s", name)
-            return False
+            self.logger.error("Falha ao selecionar empresa %s: %s", name, exc)
+            return False, str(exc)
 
     # --------------------------------------------------------------
     # Consulta de quadro societ\u00e1rio
@@ -244,16 +256,21 @@ class DominioConsultaSocietaria:
         self.logger.info(Fore.GREEN + "Iniciando script" + Style.RESET_ALL)
         self.logger.debug("test_mode=%s manual_login=%s", self.test_mode, self.manual_login)
         self.init_app()
-        if not self.login():
-            print("Falha no login")
+        success, message = self.login()
+        if not success:
+            print(message)
             return
-        companies = self.get_companies_list()
+        companies, msg = self.get_companies_list()
+        if msg:
+            print(msg)
         if self.test_mode:
             companies = companies[:3]
             print("Modo teste ativo: processando apenas as 3 primeiras empresas")
         print(f"Processando {len(companies)} empresas")
         for company in companies:
-            if not self.select_company(company):
+            selected, sel_msg = self.select_company(company)
+            if not selected:
+                print(sel_msg)
                 continue
             result = self.check_company_shareholders(company)
             self.log_json.append(result)
