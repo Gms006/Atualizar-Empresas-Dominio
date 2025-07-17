@@ -254,7 +254,11 @@ class DominioConsultaSocietaria:
     # --------------------------------------------------------------
     def run(self) -> None:
         self.logger.info(Fore.GREEN + "Iniciando script" + Style.RESET_ALL)
-        self.logger.debug("test_mode=%s manual_login=%s", self.test_mode, self.manual_login)
+        self.logger.info(
+            "Configura\u00e7\u00f5es: test_mode=%s manual_login=%s",
+            self.test_mode,
+            self.manual_login,
+        )
         self.init_app()
         success, message = self.login()
         if not success:
