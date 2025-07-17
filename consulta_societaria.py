@@ -6,6 +6,9 @@ import time
 from datetime import datetime
 from typing import Dict, List
 
+import logging
+from colorama import Fore, Style, init as colorama_init
+
 import requests
 from dotenv import load_dotenv
 from pywinauto import Application, keyboard
@@ -18,6 +21,10 @@ class DominioConsultaSocietaria:
     """Consulta simplificada do quadro societ\u00e1rio no Dom\u00ednio."""
 
     def __init__(self) -> None:
+        logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+        colorama_init(autoreset=True)
+        self.logger = logging.getLogger(__name__)
+
         load_dotenv()
         self.password = os.getenv("DOMINIO_PASSWORD", "")
         self.test_mode = os.getenv("TEST_MODE", "false").lower() in ("1", "true", "yes")
@@ -31,6 +38,7 @@ class DominioConsultaSocietaria:
     # --------------------------------------------------------------
     def init_app(self) -> None:
         """Abre o aplicativo Dom\u00ednio."""
+        self.logger.info(Fore.YELLOW + "Abrindo aplicativo Dom\u00ednio" + Style.RESET_ALL)
         # inicia o Dom\u00ednio sem aguardar ocioso para evitar travamentos
         self.app = Application(backend="win32").start(APP_SHORTCUT, wait_for_idle=False)
         time.sleep(2)  # pequena pausa para a janela ser criada
@@ -39,9 +47,11 @@ class DominioConsultaSocietaria:
         self.app.connect(title_re=".*Dom\u00ednio.*", timeout=60)
         self.main_window = self.app.window(title_re=".*Dom\u00ednio.*")
         self.main_window.wait("visible", timeout=60)
+        self.logger.info(Fore.GREEN + "Aplicativo aberto" + Style.RESET_ALL)
 
     def login(self) -> bool:
         """Realiza login automatico ou aguarda login manual."""
+        self.logger.info(Fore.YELLOW + "Realizando login" + Style.RESET_ALL)
         try:
             if not self.main_window:
                 return False
@@ -49,7 +59,7 @@ class DominioConsultaSocietaria:
             self.main_window.set_focus()
 
             if self.manual_login:
-                print("Aguardando login manual. Realize o login e pressione Enter...")
+                self.logger.info("Aguardando login manual")
                 input()
                 return True
 
@@ -76,8 +86,11 @@ class DominioConsultaSocietaria:
             self.main_window.wait("ready")
             self.main_window.set_focus()
 
+            self.logger.info(Fore.GREEN + "Login realizado" + Style.RESET_ALL)
+
             return True
-        except Exception:
+        except Exception as exc:
+            self.logger.error("Erro no login: %s", exc)
             return False
 
     # --------------------------------------------------------------
@@ -85,6 +98,7 @@ class DominioConsultaSocietaria:
     # --------------------------------------------------------------
     def get_companies_list(self) -> List[str]:
         try:
+            self.logger.debug("Obtendo lista de empresas")
             self.main_window.set_focus()
             keyboard.send_keys("{F8}")
             time.sleep(2)
@@ -95,12 +109,15 @@ class DominioConsultaSocietaria:
             companies = [child.window_text() for child in list_box.children()]
             self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
+            self.logger.info("%d empresas encontradas", len(companies))
             return companies
         except Exception:
+            self.logger.error("Falha ao obter empresas")
             return []
 
     def select_company(self, name: str) -> bool:
         try:
+            self.logger.debug("Selecionando empresa %s", name)
             self.main_window.set_focus()
             keyboard.send_keys("{F8}")
             time.sleep(1)
@@ -113,14 +130,17 @@ class DominioConsultaSocietaria:
             else:
                 self.main_window.set_focus()
                 keyboard.send_keys("{ESC}")
+                self.logger.warning("Empresa %s não encontrada", name)
                 return False
             self.main_window.set_focus()
             keyboard.send_keys("%o")
             time.sleep(1)
+            self.logger.info("Empresa %s selecionada", name)
             return True
         except Exception:
             self.main_window.set_focus()
             keyboard.send_keys("{ESC}")
+            self.logger.error("Falha ao selecionar empresa %s", name)
             return False
 
     # --------------------------------------------------------------
@@ -134,6 +154,7 @@ class DominioConsultaSocietaria:
             "observacoes": "",
         }
         try:
+            self.logger.debug("Verificando sócios da empresa %s", company)
             self.main_window.set_focus()
             keyboard.send_keys("{F8}")  # abre Troca de empresas
             time.sleep(1)
@@ -147,6 +168,7 @@ class DominioConsultaSocietaria:
                 self.main_window.set_focus()
                 keyboard.send_keys("{ESC}")
                 result["observacoes"] = "Empresa n\u00e3o encontrada"
+                self.logger.warning("Empresa %s não encontrada", company)
                 return result
 
             try:
@@ -160,6 +182,7 @@ class DominioConsultaSocietaria:
             cnpj_edit = self.main_window.child_window(class_name="Edit")
             cnpj_raw = cnpj_edit.window_text()
             result["cnpj"] = re.sub(r"[^0-9]", "", cnpj_raw)
+            self.logger.debug("CNPJ obtido: %s", result["cnpj"])
             self.verify_shareholders(result)
 
             self.main_window.set_focus()
@@ -212,12 +235,14 @@ class DominioConsultaSocietaria:
         with open(json_name, "w", encoding="utf-8") as json_file:
             json.dump(self.log_json, json_file, indent=2, ensure_ascii=False)
 
-        print(f"Logs salvos em {csv_name} e {json_name}")
+        self.logger.info("Logs salvos em %s e %s", csv_name, json_name)
 
     # --------------------------------------------------------------
     # Execu\u00e7\u00e3o principal
     # --------------------------------------------------------------
     def run(self) -> None:
+        self.logger.info(Fore.GREEN + "Iniciando script" + Style.RESET_ALL)
+        self.logger.debug("test_mode=%s manual_login=%s", self.test_mode, self.manual_login)
         self.init_app()
         if not self.login():
             print("Falha no login")
