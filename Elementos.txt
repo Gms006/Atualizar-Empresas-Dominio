@@ -1,0 +1,542 @@
+---------- ABA LOGIN ----------
+How found: Selected from tree...
+Name: "Conectando ..."
+ControlType: UIA_WindowControlTypeId (0xC370)
+LocalizedControlType: "janela"
+BoundingRectangle: {l:766 t:439 r:1152 b:642}
+IsEnabled: true
+IsOffscreen: false
+IsKeyboardFocusable: true
+HasKeyboardFocus: false
+AccessKey: ""
+ProcessId: 20032
+RuntimeId: [2A.4B0662]
+FrameworkId: "Win32"
+ClassName: "FNWNS3190"
+NativeWindowHandle: 0x4B0662
+IsPassword: false
+HelpText: ""
+IsDialog: false
+
+
+-------- CAMPO SENHA ----------
+How found: Mouse move (933,536)
+hwnd: 0x003A0970
+32bit class: "Edit"
+style: 0x540000A8
+ControlType: UIA_EditControlTypeId (0xC354)
+LocalizedControlType: "editar"
+BoundingRectangle: {l:906 t:523 r:1100 b:548}
+IsEnabled: true
+IsOffscreen: false
+IsKeyboardFocusable: true
+HasKeyboardFocus: true
+AccessKey: ""
+ProcessId: 20420
+RuntimeId: [2A.3A0970]
+AutomationId: "1007"
+FrameworkId: "Win32"
+ClassName: "Edit"
+NativeWindowHandle: 0x3A0970
+IsPassword: true
+
+
+---------- BOTÃO OK (Alt+O) -----------
+How found: Mouse move (932,615)
+hwnd: 0x003A14B6
+32bit class: "Button"
+style: 0x54000001 ex=0x0
+Name: "OK"
+ControlType: UIA_ButtonControlTypeId (0xC350)
+LocalizedControlType: "botão"
+BoundingRectangle: {l:905 t:600 r:999 b:630}
+IsEnabled: true
+IsOffscreen: false
+IsKeyboardFocusable: true
+HasKeyboardFocus: false
+AccessKey: "Alt+o"
+ProcessId: 20420
+RuntimeId: [2A.3A14B6]
+AutomationId: "1003"
+FrameworkId: "Win32"
+ClassName: "Button"
+NativeWindowHandle: 0x3A14B6
+IsPassword: false
+HelpText: ""
+IsDialog: false
+
+
+---------- ABA DOMÍNIO -----------
+How found: Mouse move (1402,12)
+hwnd: 0x00100D16
+32bit class: "FNWND3190"
+style: 0x17CF0000 ex=0x100
+ControlType: UIA_TitleBarControlTypeId (0xC375)
+LocalizedControlType: "barra de título"
+BoundingRectangle: {l:20 t:-6 r:1920 b:29}
+IsEnabled: true
+IsOffscreen: false
+IsKeyboardFocusable: true
+HasKeyboardFocus: false
+ProcessId: 22268
+RuntimeId: [2A.100D16.3.80000001.100D16.FFFFFFFE.0]
+AutomationId: "TitleBar"
+IsContentElement: false
+IsPassword: false
+IsDialog: false
+
+
+---------- JANELA DOMÍNIO -------------
+Glimpse: janela 'Domínio Registro - Versão: 10.5A-06 - 09'
+
+Available properties
+RuntimeId: [2A,100D16]
+BoundingRectangle: [l=-10,t=-10,r=1930,b=1030]
+ProcessId: 22268
+ControlType: Window(50032)
+LocalizedControlType: janela
+Name: Domínio Registro - Versão: 10.5A-06 - 09
+HasKeyboardFocus: False
+IsKeyboardFocusable: True
+IsEnabled: True
+ClassName: FNWND3190
+Culture: 0
+IsControlElement: True
+IsContentElement: True
+IsPassword: False
+NativeWindowHandle: 1051926
+IsOffscreen: False
+Orientation: None(0)
+FrameworkId: Win32
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+LegacyIAccessiblePattern.ChildId: 0
+LegacyIAccessiblePattern.Name: Domínio Registro - Versão: 10.5A-06 - 09
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_CLIENT(10)
+LegacyIAccessiblePattern.State: 1048576
+WindowPattern.CanMaximize: True
+WindowPattern.CanMinimize: True
+WindowPattern.WindowVisualState: 1
+WindowPattern.WindowInteractionState: 2
+WindowPattern.IsModal: False
+WindowPattern.IsTopmost: False
+TransformPattern.CanMove: False
+TransformPattern.CanResize: False
+TransformPattern.CanRotate: False
+LogicalSize: [w=1552,h=832]
+
+Available patterns:
+WindowPattern
+TransformPattern
+LegacyIAccessiblePattern
+
+
+---------- TROCA DE EMPRESAS (F8) ----------
+Available properties
+RuntimeId: [2A,72105E]
+BoundingRectangle: [l=641,t=160,r=1277,b=1015]
+ProcessId: 22268
+ControlType: Window(50032)
+LocalizedControlType: janela
+Name: Troca de empresas
+HasKeyboardFocus: False
+IsKeyboardFocusable: True
+IsEnabled: True
+AutomationId: 203
+ClassName: FNWND3190
+Culture: 0
+IsControlElement: True
+IsContentElement: True
+IsPassword: False
+NativeWindowHandle: 7475294
+IsOffscreen: False
+Orientation: None(0)
+FrameworkId: Win32
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+LegacyIAccessiblePattern.ChildId: 0
+LegacyIAccessiblePattern.Name: Troca de empresas
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_CLIENT(10)
+LegacyIAccessiblePattern.State: 1048576
+WindowPattern.CanMaximize: False
+WindowPattern.CanMinimize: True
+WindowPattern.WindowVisualState: 0
+WindowPattern.WindowInteractionState: 2
+WindowPattern.IsModal: False
+WindowPattern.IsTopmost: False
+TransformPattern.CanMove: True
+TransformPattern.CanResize: False
+TransformPattern.CanRotate: False
+LogicalSize: [w=508,h=684]
+
+Available patterns:
+WindowPattern
+TransformPattern
+LegacyIAccessiblePattern
+
+
+------------ CAMPO PESQUISAR -------------
+Glimpse: editar ''
+
+Available properties
+RuntimeId: [2A,971254]
+BoundingRectangle: [l=699,t=271,r=1022,b=297]
+ProcessId: 23404
+ControlType: Edit(50004)
+LocalizedControlType: editar
+HasKeyboardFocus: False
+IsKeyboardFocusable: True
+IsEnabled: True
+AutomationId: 1003
+ClassName: Edit
+Culture: 0
+IsControlElement: True
+IsContentElement: True
+IsPassword: False
+NativeWindowHandle: 9900628
+IsOffscreen: False
+Orientation: None(0)
+FrameworkId: Win32
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+ValuePattern.IsReadOnly: False
+LegacyIAccessiblePattern.ChildId: 0
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_TEXT(42)
+LegacyIAccessiblePattern.State: 1048576
+LogicalSize: [w=258,h=20]
+
+Available patterns:
+ValuePattern
+TextPattern
+LegacyIAccessiblePattern
+TextPattern2
+
+
+-------- EMPRESAS EM TROCA DE EMPRESAS --------
+Glimpse: painel ''
+
+Available properties
+RuntimeId: [2A,2817E0]
+BoundingRectangle: [l=671,t=338,r=1249,b=938]
+ProcessId: 22268
+ControlType: Pane(50033)
+LocalizedControlType: painel
+HasKeyboardFocus: True
+IsKeyboardFocusable: True
+IsEnabled: True
+AutomationId: 1011
+ClassName: pbdw190
+Culture: 0
+IsControlElement: True
+IsContentElement: True
+IsPassword: False
+NativeWindowHandle: 2627552
+IsOffscreen: False
+Orientation: None(0)
+FrameworkId: Win32
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+LegacyIAccessiblePattern.ChildId: 0
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_CLIENT(10)
+LegacyIAccessiblePattern.State: 1048580
+ScrollPattern.HorizontalScrollPercent: 0
+ScrollPattern.HorizontalViewSize: 100
+ScrollPattern.VerticalScrollPercent: 0
+ScrollPattern.VerticalViewSize: 5,58944105589441
+ScrollPattern.HorizontallyScrollable: False
+ScrollPattern.VerticallyScrollable: True
+LogicalSize: [w=462,h=480]
+
+Available patterns:
+ScrollPattern
+LegacyIAccessiblePattern
+
+
+-------- BOTÃO DADOS... (Alt+D) -------
+Glimpse: botão 'Dados...'
+
+Available properties
+RuntimeId: [2A,6810F6]
+BoundingRectangle: [l=1041,t=959,r=1142,b=993]
+ProcessId: 22268
+ControlType: Button(50000)
+LocalizedControlType: botão
+Name: Dados...
+AccessKey: Alt+d
+HasKeyboardFocus: False
+IsKeyboardFocusable: True
+IsEnabled: True
+AutomationId: 1006
+ClassName: Button
+Culture: 0
+IsControlElement: True
+IsContentElement: True
+IsPassword: False
+NativeWindowHandle: 6820086
+IsOffscreen: False
+Orientation: None(0)
+FrameworkId: Win32
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+LegacyIAccessiblePattern.ChildId: 0
+LegacyIAccessiblePattern.Name: Dados...
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_PUSHBUTTON(43)
+LegacyIAccessiblePattern.State: 1048576
+LegacyIAccessiblePattern.KeyboardShortcut: Alt+d
+LegacyIAccessiblePattern.DefaultAction: Pressionar
+LogicalSize: [w=80,h=27]
+
+Available patterns:
+InvokePattern
+LegacyIAccessiblePattern
+
+
+------- JANELA DADOS (EMPRESA) -------
+Glimpse: painel ''
+
+Available properties
+RuntimeId: [2A,7F10B8]
+BoundingRectangle: [l=471,t=268,r=1451,b=864]
+ProcessId: 23404
+ControlType: Pane(50033)
+LocalizedControlType: painel
+HasKeyboardFocus: False
+IsKeyboardFocusable: True
+IsEnabled: True
+AutomationId: 1000
+ClassName: PBTabControl32_100
+Culture: 0
+IsControlElement: True
+IsContentElement: True
+IsPassword: False
+NativeWindowHandle: 8327352
+IsOffscreen: False
+Orientation: None(0)
+FrameworkId: Win32
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+LegacyIAccessiblePattern.ChildId: 0
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_CLIENT(10)
+LegacyIAccessiblePattern.State: 1048576
+LogicalSize: [w=784,h=476]
+
+Available patterns:
+LegacyIAccessiblePattern
+
+
+------- JANELA DADOS QUADRO SOCIETÁRIO --------
+Glimpse: painel ''
+
+Available properties
+RuntimeId: [2A,7F10B8]
+BoundingRectangle: [l=471,t=268,r=1451,b=864]
+ProcessId: 23404
+ControlType: Pane(50033)
+LocalizedControlType: painel
+HasKeyboardFocus: False
+IsKeyboardFocusable: True
+IsEnabled: True
+AutomationId: 1000
+ClassName: PBTabControl32_100
+Culture: 0
+IsControlElement: True
+IsContentElement: True
+IsPassword: False
+NativeWindowHandle: 8327352
+IsOffscreen: False
+Orientation: None(0)
+FrameworkId: Win32
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+LegacyIAccessiblePattern.ChildId: 0
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_CLIENT(10)
+LegacyIAccessiblePattern.State: 1048576
+LogicalSize: [w=784,h=476]
+
+Available patterns:
+LegacyIAccessiblePattern
+
+
+------ CAMPO CAPITAL SOCIAL ------
+Glimpse: editar ''
+
+Available properties
+RuntimeId: [2A,220CFC]
+BoundingRectangle: [l=623,t=340,r=789,b=359]
+ProcessId: 23404
+ControlType: Edit(50004)
+LocalizedControlType: editar
+HasKeyboardFocus: True
+IsKeyboardFocusable: True
+IsEnabled: True
+AutomationId: 13
+ClassName: PBEDIT190
+Culture: 0
+IsControlElement: True
+IsContentElement: True
+IsPassword: False
+NativeWindowHandle: 2231548
+IsOffscreen: False
+Orientation: None(0)
+FrameworkId: Win32
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+ValuePattern.Value: 50.000,00
+ValuePattern.IsReadOnly: False
+LegacyIAccessiblePattern.ChildId: 0
+LegacyIAccessiblePattern.Value: 50.000,00
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_TEXT(42)
+LegacyIAccessiblePattern.State: 1048580
+LogicalSize: [w=132,h=15]
+
+Available patterns:
+ValuePattern
+LegacyIAccessiblePattern
+
+
+-------- CAMPO SÓCIOS ----------
+Glimpse: painel 'none'
+
+Available properties
+RuntimeId: [2A,8F16BA]
+BoundingRectangle: [l=494,t=403,r=1428,b=737]
+ProcessId: 23404
+ControlType: Pane(50033)
+LocalizedControlType: painel
+Name: none
+HasKeyboardFocus: False
+IsKeyboardFocusable: True
+IsEnabled: True
+AutomationId: 1010
+ClassName: pbdw190
+Culture: 0
+IsControlElement: True
+IsContentElement: True
+IsPassword: False
+NativeWindowHandle: 9377466
+IsOffscreen: False
+Orientation: None(0)
+FrameworkId: Win32
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+LegacyIAccessiblePattern.ChildId: 0
+LegacyIAccessiblePattern.Name: none
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_CLIENT(10)
+LegacyIAccessiblePattern.State: 1048576
+ScrollPattern.HorizontalScrollPercent: 0
+ScrollPattern.HorizontalViewSize: 28,2571742825717
+ScrollPattern.VerticalScrollPercent: 0
+ScrollPattern.VerticalViewSize: 100
+ScrollPattern.HorizontallyScrollable: True
+ScrollPattern.VerticallyScrollable: False
+LogicalSize: [w=747,h=267]
+
+Available patterns:
+ScrollPattern
+LegacyIAccessiblePattern
+
+
+--------- BOTÃO FECHAR DADOS (ESC) ----------
+Glimpse: botão 'Fechar'
+
+Available properties
+RuntimeId: [2A,BA0EE4,3,80000001,BA0EE4,FFFFFFFE,5]
+BoundingRectangle: [l=1420,t=231,r=1460,b=254]
+ProcessId: 23404
+ControlType: Button(50000)
+LocalizedControlType: botão
+Name: Fechar
+HasKeyboardFocus: False
+IsKeyboardFocusable: False
+IsEnabled: True
+AutomationId: Close
+Culture: 0
+IsControlElement: True
+IsContentElement: False
+IsPassword: False
+NativeWindowHandle: 0
+IsOffscreen: False
+Orientation: None(0)
+IsRequiredForForm: False
+IsDataValidForForm: False
+OptimizeForVisualContent: False
+LiveSetting: 0
+IsPeripheral: False
+FillType: 0
+VisualEffects: 0
+HeadingLevel: HeadingLevel_None (80050)
+IsDialog: False
+LegacyIAccessiblePattern.ChildId: 5
+LegacyIAccessiblePattern.Name: Fechar
+LegacyIAccessiblePattern.Description: Fecha a janela
+LegacyIAccessiblePattern.Role: ROLE_SYSTEM_PUSHBUTTON(43)
+LegacyIAccessiblePattern.State: 0
+LegacyIAccessiblePattern.DefaultAction: Pressionar
+LogicalSize: [w=32,h=18]
+
+Available patterns:
+InvokePattern
+LegacyIAccessiblePattern
